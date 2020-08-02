@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "social-media-login-db78f": {
+      "hosting": {
+        "social-media-login": [
+          "social-media-login-db78f"
+        ]
+      }
+    }
+  }
+}
