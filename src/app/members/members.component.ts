@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service'
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-members',
@@ -10,13 +11,40 @@ import { AuthService } from 'src/app/services/auth.service'
 })
 export class MembersComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  returnedArray = [];
+  currentUser: string;
 
-  ngOnInit(): void {
+  constructor(public auth: AuthService, public db: AngularFirestore) { }
+
+  ngOnInit(){
+    // this.db.collection('users').valueChanges()
+    // .subscribe(val => this.returnedArray = val);
+    this.db.collection('users').snapshotChanges().subscribe(
+      serviceItems => {
+        this.returnedArray = [];
+        serviceItems.forEach(a=>{
+          let item:any = a.payload.doc.data();
+          item.id = a.payload.doc.id;
+          this.returnedArray.push(item);
+        })
+      }
+    )
+
+    this.currentUser = this.auth.userEmail;
   }
 
   gSignOut() {
-    this.auth.signOut()
+    this.auth.signOut();
   }
+
+  getCurrentUser() {
+    console.log(this.auth.getUserEmail());
+    // console.log(this.auth.currentUserId());
+    // this.auth.currentUser();
+  }
+
+  // getDataOut() {
+  //   console.log(this.returnedArray);
+  // }
 
 }

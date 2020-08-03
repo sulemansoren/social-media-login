@@ -16,6 +16,7 @@ import { User } from './user.model';
 })
 export class AuthService {
   $user: Observable<User>
+  userEmail: any;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -36,13 +37,16 @@ export class AuthService {
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credentials = await this.afAuth.signInWithPopup(provider);
-    this.router.navigate(['/members'])
+    console.log(credentials.user.email);
+    this.userEmail = credentials.user.email;
+    console.log('User Email :' + this.userEmail);
+    this.router.navigate(['/members']);
     // return this.updateUserData(credentials.user);
   }
 
   async signOut() {
     await this.afAuth.signOut();
-    return this.router.navigate(['']);
+    return this.router.navigate(['/']);
   }
 
   private updateUserData(user) {
@@ -52,5 +56,12 @@ export class AuthService {
       email: user.email
     };
     return userRef.set(data, {merge: true});
+  }
+
+  // getUserEmail() {
+  //   return this.userEmail;
+  // }
+  getUserEmail(){
+    return this.userEmail;
   }
 }
