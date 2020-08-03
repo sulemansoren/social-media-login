@@ -40,6 +40,7 @@ export class AuthService {
     console.log(credentials.user.email);
     this.userEmail = credentials.user.email;
     console.log('User Email :' + this.userEmail);
+    this.updateUserData(credentials.user);
     this.router.navigate(['/members']);
     // return this.updateUserData(credentials.user);
   }
@@ -57,6 +58,25 @@ export class AuthService {
     };
     return userRef.set(data, {merge: true});
   }
+
+  async facebookSignin() {
+    const fbProvider = new auth.FacebookAuthProvider();
+    const fbCredentials = await this.afAuth.signInWithPopup(fbProvider);
+    console.log(fbCredentials.user.email);
+    this.userEmail = fbCredentials.user.email;
+    console.log('User Email :' + this.userEmail);
+    this.updateUserData(fbCredentials.user);
+    this.router.navigate(['/members']);
+  }
+
+  // private updateFacebookUserData(user) {
+  //   const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+  //   const data = {
+  //     uid: user.uid,
+  //     email: user.email
+  //   };
+  //   return userRef.set(data, {merge: true});
+  // }
 
   // getUserEmail() {
   //   return this.userEmail;

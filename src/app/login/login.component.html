@@ -13,14 +13,24 @@
         Sign in
       </button>
     </div>
-    <!-- <div class="col-sm-4 center-element">
+    <div class="col-sm-4 center-element">
       <h3>Facebook Login</h3>
-      <button type="button" class="btn login-button login-button-facebook"><i class="fa fa-facebook"></i> Sign in</button>
+      <button type="button"
+        class="btn login-button login-button-facebook"
+        (click)="fSignin()">
+        <i class="fa fa-facebook"></i>
+        Sign in
+      </button>
     </div>
     <div class="col-sm-4 center-element">
       <h3>Twitter Login</h3>
-      <button type="button" class="btn login-button login-button-twitter"><i class="fa fa-twitter"></i> Sign in</button>
-    </div> -->
+      <button type="button"
+        class="btn login-button login-button-twitter disabled"
+        (click)="tSignin()">
+        <i class="fa fa-twitter"></i>
+        Sign in
+      </button>
+    </div>
   </div>
 </div>
 

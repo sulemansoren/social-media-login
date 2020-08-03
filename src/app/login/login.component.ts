@@ -19,4 +19,12 @@ export class LoginComponent implements OnInit {
     this.auth.googleSignin();
   }
 
+  fSignin() {
+    console.log('fb sign in');
+    this.auth.facebookSignin();
+  }
+  tSignin() {
+
+  }
+
 }
